@@ -1,12 +1,16 @@
-import java.util.*;
-
 class MonthData {
     int[] days = new int[30];
 
-
-    void printDaysAndStepsFromMonth() {
+    void printDaysAndStepsFromMonth(int month) {
         for (int i = 0; i < days.length; i++) {
-            System.out.printf("%02d день: %d", i + 1, days[i]);
+            String end = "";
+            if (month == 3 || month == 8) {
+                end = "та";
+            } else {
+                end = "я";
+            }
+            String monthRealName = monthName(month).substring(0,monthName(month).length() - 1) + end;
+            System.out.printf("%02d " + monthRealName + " %d", i + 1, days[i]);
             System.out.println();
         }
     }
@@ -43,5 +47,36 @@ class MonthData {
             }
         }
         return finalSeries;
+    }
+
+    String monthName(int month) {
+        switch (month - 1) {
+            case 0:
+                return "январь";
+            case 1:
+                return "феврфль";
+            case 2:
+                return "март";
+            case 3:
+                return "апрель";
+            case 4:
+                return "май";
+            case 5:
+                return "июнь";
+            case 6:
+                return "июль";
+            case 7:
+                return "август";
+            case 8:
+                return "сентябрь";
+            case 9:
+                return "октябрь";
+            case 10:
+                return "ноябрь";
+            case 11:
+                return "декабрь";
+            default:
+                return ("[" + month + "] - Некорректный номер месяца!");
+        }
     }
 }
