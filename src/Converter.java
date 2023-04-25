@@ -1,10 +1,16 @@
 class Converter {
 
-    int convertToKm(int steps) {
-        return (steps * 75 / 100 / 1000);
+    double convertToKm(int steps) {
+        int oneStepLengthInCentimeters = 75;
+        int centimetersInMeters = 100;
+        int metersInKilometers = 100;
+        return (double) steps * oneStepLengthInCentimeters / centimetersInMeters / metersInKilometers;
+
     }
 
-    int convertStepsToKilocalories(int steps) {
-        return (steps * 50 / 1000);
+    double convertStepsToKilocalories(int steps) {
+        int caloriesPerStep = 50;
+        int caloriesInKilocalories = 1000;
+        return (double) steps * caloriesPerStep / caloriesInKilocalories;
     }
 }

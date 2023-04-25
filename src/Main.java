@@ -3,7 +3,7 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        StepTracker stepTracker = new StepTracker();
+        StepTracker stepTracker = new StepTracker(scanner);
         while (true) {
             printMenu();
             String str = scanner.nextLine();
@@ -16,7 +16,6 @@ class Main {
                 stepTracker.printStatistic();
             } else if (i == 4) {
                 System.out.println("Пока!");
-                scanner.close();
                 return;
             } else {
                 System.out.println("[" + str + "] - Такой команды нет!");
