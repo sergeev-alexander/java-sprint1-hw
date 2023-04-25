@@ -3,14 +3,9 @@ class MonthData {
 
     void printDaysAndStepsFromMonth(int month) {
         for (int i = 0; i < days.length; i++) {
-            String end = "";
-            if (month == 3 || month == 8) {
-                end = "та";
-            } else {
-                end = "я";
-            }
-            String monthRealName = monthName(month).substring(0,monthName(month).length() - 1) + end;
-            System.out.printf("%02d " + monthRealName + " %d", i + 1, days[i]);
+            String monthName = monthName(month);
+            String monthNameCorrectEnding = correctMonthEnding(month, monthName);
+            System.out.printf("%02d " + monthNameCorrectEnding + " %d", i + 1, days[i]);
             System.out.println();
         }
     }
@@ -54,7 +49,7 @@ class MonthData {
             case 0:
                 return "январь";
             case 1:
-                return "феврфль";
+                return "февраль";
             case 2:
                 return "март";
             case 3:
@@ -78,5 +73,15 @@ class MonthData {
             default:
                 return ("[" + month + "] - Некорректный номер месяца!");
         }
+    }
+
+    String correctMonthEnding (int month, String monthName) {
+        String end = "";
+        if (month == 3 || month == 8) {
+            end = "та";
+        } else {
+            end = "я";
+        }
+        return monthName.substring(0, monthName.length() - 1) + end;
     }
 }

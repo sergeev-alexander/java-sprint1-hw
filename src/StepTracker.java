@@ -7,6 +7,7 @@ class StepTracker {
     Scanner scanner;
     MonthData[] monthToData = new MonthData[12];
 
+
     StepTracker(Scanner scanner) {
         this.scanner = scanner;
         for (int i = 0; i < monthToData.length; i++) {
@@ -38,14 +39,9 @@ class StepTracker {
         }
         MonthData monthData = monthToData[month - 1];
         monthData.days[day - 1] = steps;
-        String end = "";
-        if (month == 3 || month == 8) {
-            end = "та";
-        } else {
-            end = "я";
-        }
-        String monthRealName = monthToData[month].monthName(month).substring(0, monthToData[month].monthName(month).length() - 1) + end;
-        System.out.println(steps + " шагов за " + day + " " + monthRealName + " -> Успешно сохранено!");
+        String monthName = monthData.monthName(month);
+        String monthNameCorrectEnding = monthData.correctMonthEnding(month, monthName);
+        System.out.println(steps + " шагов за " + day + " " + monthNameCorrectEnding + " -> Успешно сохранено!");
     }
 
     void changeStepGoal() {
@@ -70,26 +66,28 @@ class StepTracker {
             System.out.println("[" + str + "] - Некорректный номер месяца!");
             return;
         }
-        System.out.println("Статистика по дням за " + monthToData[month].monthName(month) + ":");
-        monthToData[month - 1].printDaysAndStepsFromMonth(month);
+        MonthData monthData = monthToData[month - 1];
+        String currentMonth = monthData.monthName(month);
+        System.out.println("Статистика по дням за " + currentMonth + ":");
+        monthData.printDaysAndStepsFromMonth(month);
 
-        int sumSteps = monthToData[month - 1].sumStepsFromMonth();
-        System.out.println("Сумма шагов за " + monthToData[month].monthName(month) + " -> " + sumSteps);
+        int sumSteps = monthData.sumStepsFromMonth();
+        System.out.println("Сумма шагов за " + currentMonth + " -> " + sumSteps);
 
-        int maxSteps = monthToData[month - 1].maxSteps();
-        System.out.println("Максимальное пройденное количество шагов за " + monthToData[month].monthName(month) + " -> " + maxSteps);
+        int maxSteps = monthData.maxSteps();
+        System.out.println("Максимальное пройденное количество шагов за " + currentMonth + " -> " + maxSteps);
 
         int averageSteps = sumSteps / 30;
-        System.out.println("Среднее пройденное количество шагов за " + monthToData[month].monthName(month) + " -> " + averageSteps);
+        System.out.println("Среднее пройденное количество шагов за " + currentMonth + " -> " + averageSteps);
 
         double kmDistance = converter.convertToKm(sumSteps);
-        System.out.printf("Пройденноя за %s дистанция -> %.3f км.\n", monthToData[month].monthName(month), kmDistance);
+        System.out.printf("Пройденноя за %s дистанция -> %.3f км.\n", currentMonth, kmDistance);
 
         double kklBurned = converter.convertStepsToKilocalories(sumSteps);
-        System.out.printf("Количество сожжённых килокалорий за %s -> %.3f ккл.\n", monthToData[month].monthName(month), kklBurned);
+        System.out.printf("Количество сожжённых килокалорий за %s -> %.3f ккл.\n", currentMonth, kklBurned);
 
-        int bestSeries = monthToData[month - 1].bestSeries(goalByStepsPerDay);
-        System.out.println("Лучшая серия за " + monthToData[month].monthName(month) + " -> " + bestSeries + "\n");
+        int bestSeries = monthData.bestSeries(goalByStepsPerDay);
+        System.out.println("Лучшая серия за " + currentMonth + " -> " + bestSeries + "\n");
     }
 }
 
